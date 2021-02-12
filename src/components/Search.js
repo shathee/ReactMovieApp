@@ -16,9 +16,9 @@ class Search extends Component {
     }
 
     callSearchFunction = (e) => {
-    e.preventDefault();
-    this.props.search(this.state.searchValue);
-    this.resetInputField();
+        e.preventDefault();
+        this.props.search(this.state.searchValue);
+        this.resetInputField();
     }
 
     render ()
@@ -29,8 +29,6 @@ class Search extends Component {
                 <input onClick={this.callSearchFunction} type="submit" value="SEARCH" /> 
                 </form>
             );
-
-
         }
         
 }
