@@ -1,22 +1,24 @@
 // import React, { useState, useEffect } from "react";
 import React, { Component } from "react";
-import logo from './logo.svg';
 import './App.css';
+import { Container, AppBar, Toolbar, Typography } from '@material-ui/core';
+
+
 
 import Header from "./components/Header";
 import Movie from "./components/Movie";
 import Search from "./components/Search";
 
+import Grid from '@material-ui/core/Grid';
 
-const MOVIE_API_URL = "https://www.omdbapi.com/?s=man&apikey=209bed8b"; // you should replace this with yours
 
+const MOVIE_API_URL = "https://www.omdbapi.com/?s=&apikey=209bed8b"; // you should replace this with yours
 
 
 class App extends Component {
-
   state = {
     loading: true,
-    movies: [],
+    movies: null,
     errorMessage: null
   }
 
@@ -28,6 +30,9 @@ class App extends Component {
           this.setState({movies:jsonResponse.Search});
           this.setState({loading:false});
         });
+
+     console.log(this.state.movies)
+    
   }
 
 
@@ -39,6 +44,7 @@ class App extends Component {
       .then(response => response.json())
       .then(jsonResponse => {
         if (jsonResponse.Response === "True") {
+          console.log(jsonResponse);
           this.setState({movies:jsonResponse.Search});
           this.setState({loading:false});
         } else {
@@ -55,20 +61,37 @@ class App extends Component {
       
       return (
         <div className="App">
-            <Header text="React Movie Search App" />
+          <Container>
+          <AppBar position="static">
+            <Toolbar variant="dense">
+              <Typography variant="h6" color="inherit" component="div">
+              React Movie Search App
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <main>
             <Search search={this.search} />
-              <p className="App-intro">Sharing a few of our favourite movies</p>
-              <div className="movies">
-              {this.state.loading && !this.state.errorMessage ? (
-                <span>loading...</span>
-                ) : this.state.errorMessage ? (
-                 <div className="errorMessage">{this.state.errorMessage}</div>
-               ) : (
-                this.state.movies.map((movie, index) => (
-                   <Movie key={`${index}-${movie.Title}`} movie={movie} />
-                 ))
-             )}
+            <p className="App-intro">Pleas write i the search box to find what you are looking for</p>
+            <Container>
+            <div className="movies">
+            <Grid container spacing={3}>
+              { this.state.loading && !this.state.errorMessage ? (
+                  <span>loading...</span>
+                  ) : this.state.errorMessage ? (
+                  <div className="errorMessage">{this.state.errorMessage}</div>
+                ) : this.state.movies != null ? (
+                  this.state.movies.map((movie, index) => (
+                    <Movie key={`${index}-${movie.imdbID}`} movie={movie} />
+                  ))) : (<p></p>)
+              }
+            </Grid>
             </div>
+            
+            </Container>
+          </main>  
+              
+            
+          </Container>
        </div>
       );
   }
