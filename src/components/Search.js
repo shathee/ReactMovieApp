@@ -2,9 +2,12 @@ import React, { Component } from "react";
 
 
 class Search extends Component {
-
+    
     state = {
         searchValue: ""
+    }
+    componentDidMount () {
+        console.log(this.props)
     }
 
     handleSearchInputChanges = (e) => {
@@ -16,7 +19,9 @@ class Search extends Component {
     }
 
     callSearchFunction = (e) => {
+        
         e.preventDefault();
+        // alert(this.state.searchValue);
         this.props.search(this.state.searchValue);
         this.resetInputField();
     }
