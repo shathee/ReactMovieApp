@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 
+import { Container, Button, FormGroup, TextField, Divider } from "@material-ui/core";
+
+
 
 class Search extends Component {
     
@@ -29,10 +32,15 @@ class Search extends Component {
     render ()
         {
             return (
+                <FormGroup>
+
                 <form className="search">
-                <input value={this.state.searchValue} onChange={this.handleSearchInputChanges} type="text" />
-                <input onClick={this.callSearchFunction} type="submit" value="SEARCH" /> 
+                    <Container><TextField value={this.state.searchValue} onChange={this.handleSearchInputChanges} /></Container>
+                    <Divider />
+                    <Container><Button variant="contained" onClick={this.callSearchFunction}>SEARCH</Button></Container>
                 </form>
+                </FormGroup>
+                
             );
         }
         

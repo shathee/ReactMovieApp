@@ -30,9 +30,6 @@ class App extends Component {
           this.setState({movies:jsonResponse.Search});
           this.setState({loading:false});
         });
-
-     console.log(this.state.movies)
-    
   }
 
 
@@ -70,8 +67,11 @@ class App extends Component {
             </Toolbar>
           </AppBar>
           <main>
+            <Container>
             <Search search={this.search} />
             <p className="App-intro">Pleas write i the search box to find what you are looking for</p>
+            </Container>
+            
             <Container>
             <div className="movies">
             <Grid container spacing={3}>
